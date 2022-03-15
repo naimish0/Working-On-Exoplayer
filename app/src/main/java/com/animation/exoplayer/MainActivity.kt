@@ -19,17 +19,17 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(viewBinding.root)
-        initPlayer()
-
     }
     private fun initPlayer()
     {
         exoPlayer=ExoPlayer.Builder(this)
             .build()
             .also {
-                viewBinding.videoView.player=it
+                viewBinding.videoView.player=exoPlayer
                 val mediaItem=MediaItem.fromUri(getString(R.string.url_to_play))
-                it.setMediaItem(mediaItem)
+                exoPlayer?.addMediaItem(mediaItem)
+                val secondMedia=MediaItem.fromUri(getString(R.string.url_to_play))
+                exoPlayer?.addMediaItem(secondMedia)
             }
         exoPlayer?.playWhenReady=playwhenReady
         exoPlayer?.seekTo(currentWindow,playbackPosition)
@@ -62,6 +62,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        hideSystemUI()
         initPlayer()
     }
 
