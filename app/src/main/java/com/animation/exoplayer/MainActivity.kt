@@ -62,10 +62,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        initPlayer()
     }
 
     override fun onPause() {
         super.onPause()
+        releasePlayer()
     }
 
     override fun onStop() {
